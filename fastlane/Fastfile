@@ -1,0 +1,29 @@
+# Fastfile for Android Google Play Store publishing
+
+default_platform(:android)
+
+platform :android do
+  # Options for Android
+  desc "Build and upload to Google Play Store"
+  
+  lane :upload_to_play_store do
+    # Build the release APK and AAB
+    gradle(
+      task: "bundleRelease"
+    )
+    
+    gradle(
+      task: "assembleRelease"
+    )
+    
+    # Upload AAB to Google Play Store internal testing track
+    upload_to_play_store(
+      json_key: "play-store-key.json",
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      track: "internal",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+end
