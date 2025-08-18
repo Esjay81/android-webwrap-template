@@ -8,40 +8,33 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+    
+    private lateinit var webView: WebView
 
-    @SuppressLint("SetJavaScriptEnabled") 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Create WebView programmatically to avoid R class issues
-        val webView = WebView(this)
-        webView.id = android.view.View.generateViewId()
+        webView = WebView(this)
         setContentView(webView)
         
-        val webSettings: WebSettings = webView.settings
-
-        // Enable JavaScript
-        webSettings.javaScriptEnabled = true
-
-        // Enable DOM storage
-        webSettings.domStorageEnabled = true
-
-        // Enable caching
-        webSettings.cacheMode = WebSettings.LOAD_DEFAULT
-
-        // Enable mixed content for HTTPS
-        webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-
-        // Set WebView client
-        webView.webViewClient = WebViewClient()
-
-        // Load the web app URL
+        setupWebView()
         webView.loadUrl("{{WEB_APP_URL}}")
     }
+    
+    private fun setupWebView() {
+        val settings = webView.settings
+        settings.javaScriptEnabled = true
+        settings.domStorageEnabled = true
+        settings.cacheMode = WebSettings.LOAD_DEFAULT
+        settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        
+        webView.webViewClient = WebViewClient()
+    }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val webView = findViewById<WebView>(android.R.id.content)
-        if (webView?.canGoBack() == true) {
+        if (webView.canGoBack()) {
             webView.goBack()
         } else {
             super.onBackPressed()
