@@ -70,6 +70,7 @@ jobs:
       run: |
         # Update app name in strings.xml
         sed -i "s|WebViewApp|${{ github.event.inputs.app_name }}|g" app/src/main/res/values/strings.xml
+        sed -i "s|{{APP_NAME}}|${{ github.event.inputs.app_name }}|g" app/src/main/res/values/strings.xml
         
         # Update package name and app URL in build.gradle
         sed -i "s|com.webwrap.android|${{ github.event.inputs.package_id }}|g" app/build.gradle
