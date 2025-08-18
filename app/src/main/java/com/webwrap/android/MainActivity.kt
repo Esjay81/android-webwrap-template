@@ -9,21 +9,21 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint("SetJavaScriptEnabled") 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Hardcode the layout resource ID (activity_main = 0x7f0d0000 + layout index)
-        setContentView(0x7f0d0000)
+        // Create WebView programmatically to avoid R class issues
+        val webView = WebView(this)
+        webView.id = android.view.View.generateViewId()
+        setContentView(webView)
         
-        // Hardcode the webview resource ID (webview = 0x7f0a0000 + id index) 
-        val webView: WebView = findViewById(0x7f0a0000)
         val webSettings: WebSettings = webView.settings
 
         // Enable JavaScript
         webSettings.javaScriptEnabled = true
 
-        // Enable DOM storage  
+        // Enable DOM storage
         webSettings.domStorageEnabled = true
 
         // Enable caching
@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val webView: WebView = findViewById(0x7f0a0000)
-        if (webView.canGoBack()) {
+        val webView = findViewById<WebView>(android.R.id.content)
+        if (webView?.canGoBack() == true) {
             webView.goBack()
         } else {
             super.onBackPressed()
