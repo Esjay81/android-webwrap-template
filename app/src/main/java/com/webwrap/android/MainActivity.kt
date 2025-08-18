@@ -1,6 +1,6 @@
 package com.webwrap.android
 
-import android.annotation.SLint
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    @SLint("SetJavaScriptEnabled")
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
