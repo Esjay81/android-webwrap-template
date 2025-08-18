@@ -15,16 +15,33 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val webView: WebView = findViewById(R.id.webview)
-        webView.webViewClient = WebViewClient()
-
         val webSettings: WebSettings = webView.settings
+
+        // Enable JavaScript
         webSettings.javaScriptEnabled = true
+
+        // Enable DOM storage
         webSettings.domStorageEnabled = true
-        webSettings.allowFileAccess = true
-        webSettings.allowContentAccess = true
-        webSettings.setAppCacheEnabled(true)
+
+        // Enable caching (removed deprecated setAppCacheEnabled)
+        webSettings.cacheMode = WebSettings.LOAD_DEFAULT
+
+        // Enable mixed content for HTTPS
+        webSettings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+
+        // Set WebView client
+        webView.webViewClient = WebViewClient()
 
         // Load the web app URL
         webView.loadUrl("{{WEB_APP_URL}}")
+    }
+
+    override fun onBackPressed() {
+        val webView: WebView = findViewById(R.id.webview)
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
