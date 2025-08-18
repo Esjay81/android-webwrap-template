@@ -12,9 +12,13 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.webwrap.android.R.layout.activity_main)
+        
+        // Use resources by ID instead of R class references
+        val layoutId = resources.getIdentifier("activity_main", "layout", packageName)
+        setContentView(layoutId)
 
-        val webView: WebView = findViewById(com.webwrap.android.R.id.webview)
+        val webViewId = resources.getIdentifier("webview", "id", packageName)
+        val webView: WebView = findViewById(webViewId)
         val webSettings: WebSettings = webView.settings
 
         // Enable JavaScript
@@ -23,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         // Enable DOM storage
         webSettings.domStorageEnabled = true
 
-        // Enable caching (removed deprecated setAppCacheEnabled)
+        // Enable caching
         webSettings.cacheMode = WebSettings.LOAD_DEFAULT
 
         // Enable mixed content for HTTPS
@@ -37,7 +41,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val webView: WebView = findViewById(com.webwrap.android.R.id.webview)
+        val webViewId = resources.getIdentifier("webview", "id", packageName)
+        val webView: WebView = findViewById(webViewId)
         if (webView.canGoBack()) {
             webView.goBack()
         } else {
