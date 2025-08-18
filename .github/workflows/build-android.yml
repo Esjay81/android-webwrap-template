@@ -78,7 +78,7 @@ jobs:
         sed -i "s|versionName.*|versionName \"${{ github.event.inputs.version_name }}\"|g" app/build.gradle
         
         # Update web app URL in MainActivity
-        sed -i "s|https://example.com|${{ github.event.inputs.web_app_url }}|g" app/src/main/java/com/webwrap/android/MainActivity.kt
+        sed -i "s|{{WEB_APP_URL}}|${{ github.event.inputs.web_app_url }}|g" app/src/main/java/com/webwrap/android/MainActivity.kt
         
         # Update package name in MainActivity.kt
         mkdir -p app/src/main/java/$(echo "${{ github.event.inputs.package_id }}" | tr '.' '/')
