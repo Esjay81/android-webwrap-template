@@ -13,18 +13,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Use resources by ID instead of R class references
-        val layoutId = resources.getIdentifier("activity_main", "layout", packageName)
-        setContentView(layoutId)
-
-        val webViewId = resources.getIdentifier("webview", "id", packageName)
-        val webView: WebView = findViewById(webViewId)
+        // Hardcode the layout resource ID (activity_main = 0x7f0d0000 + layout index)
+        setContentView(0x7f0d0000)
+        
+        // Hardcode the webview resource ID (webview = 0x7f0a0000 + id index) 
+        val webView: WebView = findViewById(0x7f0a0000)
         val webSettings: WebSettings = webView.settings
 
         // Enable JavaScript
         webSettings.javaScriptEnabled = true
 
-        // Enable DOM storage
+        // Enable DOM storage  
         webSettings.domStorageEnabled = true
 
         // Enable caching
@@ -41,8 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val webViewId = resources.getIdentifier("webview", "id", packageName)
-        val webView: WebView = findViewById(webViewId)
+        val webView: WebView = findViewById(0x7f0a0000)
         if (webView.canGoBack()) {
             webView.goBack()
         } else {
