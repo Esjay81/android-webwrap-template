@@ -12,9 +12,9 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.webwrap.android.R.layout.activity_main)
 
-        val webView: WebView = findViewById(R.id.webview)
+        val webView: WebView = findViewById(com.webwrap.android.R.id.webview)
         val webSettings: WebSettings = webView.settings
 
         // Enable JavaScript
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val webView: WebView = findViewById(R.id.webview)
+        val webView: WebView = findViewById(com.webwrap.android.R.id.webview)
         if (webView.canGoBack()) {
             webView.goBack()
         } else {
